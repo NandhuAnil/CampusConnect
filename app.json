@@ -1,0 +1,68 @@
+{
+  "expo": {
+    "name": "CampusConnect",
+    "slug": "CampusConnect",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/Splash/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/Splash/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/Splash/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "splash": {
+        "image": "./assets/Splash/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "com.android.vending.BILLING",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.WAKE_LOCK",
+        "INTERNET"
+      ],
+      "package": "com.nandhuanil.CampusConnect"
+    },
+    "plugins": [
+      "@react-native-firebase/app",
+      "@react-native-firebase/auth",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ]
+    ],
+    "web": {
+      "favicon": "./assets/Splash/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8fc9fc69-f9c0-4599-a7bf-f15bc997b9ec"
+      }
+    },
+    "notification": {
+      "icon": "./assets/Splash/icon.png",
+      "color": "#ffffff",
+      "iosDisplayInForeground": true
+    }
+  }
+}
