@@ -11,6 +11,7 @@ import {
   Modal,
   ActivityIndicator,
   ToastAndroid,
+  TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../constants/colors";
@@ -567,9 +568,26 @@ export default function ProfileScreen() {
               Delete Account
             </Text>
           </Pressable>
-          {/* <Button title="Logout" onPress={handleLogout} color="red" />
-        <Button title="Delete Account" onPress={handleDeleteAccount} color="red" /> */}
         </View>
+
+        <View style={styles.sectionTitle}>
+          <Text
+            style={[
+              styles.sectionTitleText,
+              { color: "#000" },
+            ]}
+          >
+            Updates
+          </Text>
+        </View>
+
+        <View>
+            <TouchableOpacity 
+              style={{width: "100%", justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.blue, height: 40, borderRadius: 8 }}>
+              <Text style={{ color: COLORS.white, fontSize: 16}}>Check for updates</Text>
+            </TouchableOpacity>
+        </View>
+
         </View>
         }
       </ScrollView>
