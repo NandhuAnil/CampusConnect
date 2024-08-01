@@ -81,12 +81,12 @@ const Admin = ({ navigation }) => {
           />
         </View>
       </Pressable>
-      {/* <Pressable
-        onPress={() => navigation.navigate("TimetableGenerate")}
+      <Pressable
+        onPress={() => navigation.navigate("VerificationData")}
         style={styles.buttonDesign}
       >
         <View style={styles.iconDesign}>
-          <Image source={require("../assets/Icon/timetable.png")} style={{ width: 30, height: 30 }} />
+          <Image source={require("../assets/Icon/users.png")} style={{ width: 30, height: 30 }} />
           <Text
             style={[
               styles.sectionText,
@@ -94,7 +94,7 @@ const Admin = ({ navigation }) => {
               { paddingTop: 3 },
             ]}
           >
-            TimeTable Generator
+            Add Student
           </Text>
         </View>
         <View style={styles.iconDesign}>
@@ -105,13 +105,13 @@ const Admin = ({ navigation }) => {
             style={{ alignItems: "center" }}
           />
         </View>
-      </Pressable>    */}
+      </Pressable>   
       <Pressable
         onPress={() => navigation.navigate("Notify")}
         style={styles.buttonDesign}
       >
         <View style={styles.iconDesign}>
-          <Image source={require("../assets/Icon/timetable.png")} style={{ width: 30, height: 30 }} />
+          <Image source={require("../assets/Icon/bell.png")} style={{ width: 30, height: 30 }} />
           <Text
             style={[
               styles.sectionText,

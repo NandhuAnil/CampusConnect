@@ -17,6 +17,10 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD"
+    },
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
@@ -34,7 +38,9 @@
         "com.android.vending.BILLING",
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.WAKE_LOCK",
-        "INTERNET"
+        "INTERNET",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
       ],
       "package": "com.nandhuanil.CampusConnect"
     },

@@ -3,14 +3,30 @@
     "version": ">= 10.1.1"
   },
   "build": {
+    "production": {
+      "channel": "production",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "profile-build": {
+      "channel": "profile",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "staging": {
+      "channel": "staging",
+      "android": {
+        "buildType": "apk"
+      }
+    },
     "development": {
-      "developmentClient": true,
-      "distribution": "internal"
-    },
-    "preview": {
-      "distribution": "internal"
-    },
-    "production": {}
+      "channel": "development",
+      "android": {
+        "buildType": "apk"
+      }
+    }
   },
   "submit": {
     "production": {}

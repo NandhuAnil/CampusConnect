@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState();
   const [expoPushToken, setExpoPushToken] = useState('');
   const [userId, setUserId] = useState(null);
@@ -49,7 +49,7 @@ export default function App() {
 
   function onAuthStateChanged(user) {
     setUser(user);
-    setLoading(false);
+    setLoading(true);
   }
 
   useEffect(() => {
@@ -118,30 +118,28 @@ export default function App() {
       return null;
     }
   }
-  // const requestUserPermission = async () => {
-  //   const authStatus = await messaging().requestPermission();
-  //   const enabled =
-  //     authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-  //     authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-  //   if (enabled) {
-  //     console.log('Authorization status:', authStatus);
-  //   } else {
-  //     Alert.alert('Notification permissions denied');
-  //   }
-  // };
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setLoading(true);
+      }
+    }
 
-  // useEffect(() => {
-  //   requestUserPermission().then(() => {
-  //     messaging().getToken().then(token => {
-  //       console.log(token);
-  //     });
-  //   }).catch(authStatus => {
-  //     console.log("failed", authStatus);
-  //   });
-  // }, []);
+    prepare();
+  }, []);
 
-  if (loading) {
+  const onLayoutRootView = useCallback(async () => {
+    if (loading) {
+      await SplashScreen.hideAsync();
+    }
+  }, [loading]);
+
+  if (!loading) {
     return (
       <View>
         <SkeletonLoader />
@@ -151,7 +149,7 @@ export default function App() {
 
   return (
     <PaperProvider>
-      <NavigationContainer>
+      <NavigationContainer onLayout={onLayoutRootView}> 
         {user ? (
           <Stack.Navigator>
             <Stack.Screen

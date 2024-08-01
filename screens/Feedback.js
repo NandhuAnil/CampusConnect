@@ -21,6 +21,8 @@ const Feedback = () => {
   const [messages, setMessages] = useState([]);
   const [replyTo, setReplyTo] = useState(null);
   const [replyingToMessage, setReplyingToMessage] = useState(null);
+  const [inputText, setInputText] = useState('');
+
 
   useEffect(() => {
     const fetchFeedbacks = async () => {
@@ -61,20 +63,55 @@ const Feedback = () => {
       replyTo: replyTo,
       replyingToMessage: replyingToMessage,
     };
-  
+
     try {
-      await firestore().collection('feedbacks').add(messageData);
-      await sendNotifications('Feedback Received', `New Feedback from ${newMessage.user.name}`);
+      if (replyTo) {
+        await firestore().collection('feedbacks').doc(replyTo).update(messageData);
+      } else {
+        await firestore().collection('feedbacks').add(messageData);
+        await sendNotifications('Feedback Received', `New Feedback from ${newMessage.user.name}`);
+      }
       setReplyTo(null);
       setReplyingToMessage(null);
     } catch (error) {
       console.error('Error adding document: ', error);
     }
   };
+
+
   const handleLongPress = (context, message) => {
+    const options = ['Edit', 'Delete', 'Cancel'];
+    const cancelButtonIndex = options.length - 1;
+    context.actionSheet().showActionSheetWithOptions({
+      options,
+      cancelButtonIndex,
+    },
+    (buttonIndex) => {
+      switch (buttonIndex) {
+        case 0:
+          handleEditMessage(message);
+          break;
+        case 1:
+          handleDeleteMessage(message._id);
+          break;
+      }
+    });
+  };
+  
+  const handleEditMessage = (message) => {
     setReplyTo(message._id);
     setReplyingToMessage(message.text);
+    setInputText(message.text);
   };
+  
+  const handleDeleteMessage = async (messageId) => {
+    try {
+      await firestore().collection('feedbacks').doc(messageId).delete();
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+    }
+  };
+  
 
   const renderBubble = (props) => {
     return (
@@ -146,7 +183,10 @@ const Feedback = () => {
         )}
         <GiftedChat
           messages={messages}
-          onSend={(messages) => handleSendFeedback(messages)}
+          onSend={(messages) => {
+            handleSendFeedback(messages);
+            setInputText('');
+          }}
           user={{
             _id: name,
             name: name,
@@ -156,8 +196,10 @@ const Feedback = () => {
           alwaysShowSend
           renderUsernameOnMessage 
           scrollToBottom 
-          renderInputToolbar={renderInputToolbar}
+          renderInputToolbar={(props) => renderInputToolbar(props, inputText, setInputText)}
           renderSend={renderSend}
+          text={inputText}
+          onInputTextChanged={(text) => setInputText(text)}
         />
       </View>
     </ImageBackground>

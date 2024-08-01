@@ -15,8 +15,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Checkbox from "expo-checkbox";
 import Button from "../components/Button";
 import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import verificationData from '../Utils/verificationData.json'; 
+import firestore from '@react-native-firebase/firestore'; 
 
 const Signup = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState(false);
@@ -25,6 +24,8 @@ const Signup = ({ navigation }) => {
   const [userRole, setUserRole] = useState(null); 
   const [isVerified, setIsVerified] = useState(false); 
   const [verificationInput, setVerificationInput] = useState(''); 
+  const [verificationData, setVerificationData] = useState(''); 
+  const [adminverificationData, setAdminVerificationData] = useState(''); 
 
   const [values, setValues] = useState({
     name: "",
@@ -78,23 +79,38 @@ const Signup = ({ navigation }) => {
     }
   }
   
-  // async function retryFirestoreOperation(operation, retries = 3, delay = 1000) {
-  //   for (let i = 0; i < retries; i++) {
-  //     try {
-  //       return await operation();
-  //     } catch (error) {
-  //       console.error('Firestore operation failed:', error);
-  //       await new Promise(resolve => setTimeout(resolve, delay * Math.pow(2, i)));
-  //     }
-  //   }
-  //   throw new Error('Firestore operation failed after retries');
-  // }
+  useEffect(() => {
+    // Fetch verification data from Firestore
+    const fetchData = async () => {
+      try {
+        const Userdoc = await firestore().collection('verificationData').doc('enrollNumbers').get();
+        const Admindoc = await firestore().collection('verificationData').doc('securityKey').get();
+        if (Userdoc.exists && Admindoc.exists) {
+          setVerificationData(Userdoc.data());
+          setAdminVerificationData(Admindoc.data());
+        } else {
+          console.log('No such document!');
+        }
+      } catch (error) {
+        console.error("Error fetching document: ", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
   
 
   const verifyInput = () => {
-    const { securityKey, enrollNumbers } = verificationData;
+    if (!verificationData || !adminverificationData) {
+      ToastAndroid.show('Verification data not loaded', ToastAndroid.SHORT);
+      return;
+    }
   
-    if (verificationInput === securityKey.key) {
+    const { enrollNumbers } = verificationData;
+    const securityKey = adminverificationData.key;  // Extract key from the admin verification data
+  
+    if (verificationInput === securityKey) {
       setUserRole('admin');
       setIsVerified(true);
       ToastAndroid.show('Admin verified successfully', ToastAndroid.SHORT);
@@ -114,6 +130,7 @@ const Signup = ({ navigation }) => {
       }
     }
   };
+  
   
 
   return (

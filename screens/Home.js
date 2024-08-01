@@ -29,6 +29,7 @@ import Resume from "../components/Resume";
 import useUserDetails from '../Hooks/UserDetails';
 
 import NotificationComponent from "../Utils/NotificationComponent";
+import VerificationData from "../Utils/VerificationData";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -148,6 +149,11 @@ export default function Home () {
           name="Notify"
           component={Notify}
           options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="VerificationData"
+          component={VerificationData}
+          options={{ headerShown: true, headerTitle: "Add Students", }}
         />
       </Stack.Navigator>
     );
