@@ -21,7 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 import { MaterialIcons, Feather, AntDesign } from "@expo/vector-icons";
-
+import * as Updates from 'expo-updates';
 import * as ImagePicker from "expo-image-picker";
 import ImageViewer from "../components/ImageViewer";
 
@@ -37,6 +37,35 @@ export default function ProfileScreen() {
 
   const [isAboutModalVisible, setIsAboutModalVisible] = useState(false);
   const [isHelpModalVisible, setIsHelpModalVisible] = useState(false);
+
+  const checkForUpdates = async () => {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      if (update.isAvailable) {
+        Alert.alert(
+          "Update Available",
+          "A new update is available. Would you like to download and restart the app?",
+          [
+            { text: "Cancel", style: "cancel" },
+            { text: "Update", onPress: () => applyUpdate() }
+          ]
+        );
+      } else {
+        Alert.alert("No updates available");
+      }
+    } catch (e) {
+      Alert.alert("Error checking for updates", e.message);
+    }
+  };
+
+  const applyUpdate = async () => {
+    try {
+      await Updates.fetchUpdateAsync();
+      await Updates.reloadAsync();
+    } catch (e) {
+      Alert.alert("Error applying update", e.message);
+    }
+  };
 
   useEffect(() => {
     const unsubscribe = auth().onAuthStateChanged(async (user) => {
@@ -582,8 +611,7 @@ export default function ProfileScreen() {
         </View>
 
         <View>
-            <TouchableOpacity 
-              style={{width: "100%", justifyContent: 'center', alignItems: 'center', backgroundColor: COLORS.blue, height: 40, borderRadius: 8 }}>
+            <TouchableOpacity onPress={checkForUpdates} style={styles.updatebtn}>
               <Text style={{ color: COLORS.white, fontSize: 16}}>Check for updates</Text>
             </TouchableOpacity>
         </View>
@@ -596,6 +624,14 @@ export default function ProfileScreen() {
 }
 
 const styles = StyleSheet.create({
+  updatebtn: {
+    width: "100%",
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.blue,
+    borderRadius: 8 
+  },
   container: {
     flex: 1,
     paddingBottom: 20,
