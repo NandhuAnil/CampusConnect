@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState();
   const [expoPushToken, setExpoPushToken] = useState('');
   const [userId, setUserId] = useState(null);
@@ -47,9 +47,10 @@ export default function App() {
     });
   }, [userId]);
 
-  function onAuthStateChanged(user) {
+  async function onAuthStateChanged(user) {
     setUser(user);
-    setLoading(true);
+    setLoading(false);
+    await SplashScreen.hideAsync();
   }
 
   useEffect(() => {
@@ -126,20 +127,14 @@ export default function App() {
       } catch (e) {
         console.warn(e);
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     }
 
     prepare();
   }, []);
 
-  const onLayoutRootView = useCallback(async () => {
-    if (loading) {
-      await SplashScreen.hideAsync();
-    }
-  }, [loading]);
-
-  if (!loading) {
+  if (loading) {
     return (
       <View>
         <SkeletonLoader />
