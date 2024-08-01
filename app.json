@@ -19,7 +19,8 @@
     ],
     "updates": {
       "enabled": true,
-      "checkAutomatically": "ON_LOAD"
+      "checkAutomatically": "ON_LOAD",
+      "url": "https://u.expo.dev/8fc9fc69-f9c0-4599-a7bf-f15bc997b9ec"
     },
     "android": {
       "googleServicesFile": "./google-services.json",
@@ -69,6 +70,9 @@
       "icon": "./assets/Splash/icon.png",
       "color": "#ffffff",
       "iosDisplayInForeground": true
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }
