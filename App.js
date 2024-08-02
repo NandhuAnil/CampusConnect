@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Alert } from "react-native";
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -144,7 +144,7 @@ export default function App() {
 
   return (
     <PaperProvider>
-      <NavigationContainer onLayout={onLayoutRootView}> 
+      <NavigationContainer> 
         {user ? (
           <Stack.Navigator>
             <Stack.Screen
