@@ -20,7 +20,8 @@
     "updates": {
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
-      "url": "https://u.expo.dev/8fc9fc69-f9c0-4599-a7bf-f15bc997b9ec"
+      "url": "https://u.expo.dev/8fc9fc69-f9c0-4599-a7bf-f15bc997b9ec",
+      "fallbackToCacheTimeout": 0
     },
     "android": {
       "googleServicesFile": "./google-services.json",

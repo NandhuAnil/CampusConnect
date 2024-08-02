@@ -38,6 +38,9 @@ export default function ProfileScreen() {
   const [isAboutModalVisible, setIsAboutModalVisible] = useState(false);
   const [isHelpModalVisible, setIsHelpModalVisible] = useState(false);
 
+  const [isUpdating, setIsUpdating] = useState(false);
+  const [updateProgress, setUpdateProgress] = useState(0);
+
   const checkForUpdates = async () => {
     try {
       const update = await Updates.checkForUpdateAsync();
@@ -60,10 +63,15 @@ export default function ProfileScreen() {
 
   const applyUpdate = async () => {
     try {
+      setIsUpdating(true);
       await Updates.fetchUpdateAsync();
+      setUpdateProgress(100); // Simulating progress completion
       await Updates.reloadAsync();
     } catch (e) {
       Alert.alert("Error applying update", e.message);
+    } finally {
+      setIsUpdating(false);
+      setUpdateProgress(0);
     }
   };
 
@@ -615,6 +623,21 @@ export default function ProfileScreen() {
               <Text style={{ color: COLORS.white, fontSize: 16}}>Check for updates</Text>
             </TouchableOpacity>
         </View>
+
+        <Modal
+          transparent={true}
+          animationType="slide"
+          visible={isUpdating}
+          onRequestClose={() => setIsUpdating(false)}
+        >
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+            <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10, alignItems: 'center' }}>
+              <Text>Downloading Update...</Text>
+              <ActivityIndicator size="large" color="#0000ff" />
+              <Text>{`Progress: ${updateProgress}%`}</Text>
+            </View>
+          </View>
+        </Modal>
 
         </View>
         }
