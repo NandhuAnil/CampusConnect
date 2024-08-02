@@ -83,8 +83,8 @@ const NotificationComponent = () => {
                 style={{
                   width: "100%",
                 }}
-                onChangeText={setBody}
                 value={body}
+                onChangeText={setBody}
               />
             </View>
           </View>
