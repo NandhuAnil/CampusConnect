@@ -68,19 +68,75 @@ const CreateAnnouncement = () => {
 
   return (
     <View style={styles.container}>
-      <View>
-        <TextInput
-          style={styles.input}
-          placeholder="Title"
-          value={title}
-          onChangeText={setTitle}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Info"
-          value={info}
-          onChangeText={setInfo}
-        />
+      <View style={{ flex: 1, marginHorizontal: 22 }}>
+        <View style={{ marginBottom: 12, marginTop: 22 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: 400,
+              marginVertical: 2,
+            }}
+          >
+            Title :
+          </Text>
+
+          <View
+            style={{
+              width: "100%",
+              height: 48,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              borderRadius: 8,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: 22,
+            }}
+          >
+            <TextInput
+              placeholder="Title for Announcement"
+              placeholderTextColor={COLORS.black}
+              style={{
+                width: "100%",
+              }}
+              value={title}
+              onChangeText={setTitle}
+            />
+          </View>
+        </View>
+        <View style={{ marginBottom: 12 }}>
+          <Text
+            style={{
+              fontSize: 16,
+              fontWeight: 400,
+              marginVertical: 2,
+            }}
+          >
+            Information :
+          </Text>
+
+          <View
+            style={{
+              width: "100%",
+              height: 48,
+              borderColor: COLORS.black,
+              borderWidth: 1,
+              borderRadius: 8,
+              alignItems: "center",
+              justifyContent: "center",
+              paddingLeft: 22,
+            }}
+          >
+            <TextInput
+              placeholder="Notification content"
+              placeholderTextColor={COLORS.black}
+              style={{
+                width: "100%",
+              }}
+              value={info}
+              onChangeText={setInfo}
+            />
+          </View>
+        </View>
         <View style={styles.switchContainer}>
           <Text>Attach a file</Text>
           <Switch
@@ -114,6 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: 'space-between',
+    backgroundColor: COLORS.white
   },
   input: {
     height: 40,
