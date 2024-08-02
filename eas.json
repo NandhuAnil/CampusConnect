@@ -6,25 +6,37 @@
     "production": {
       "channel": "production",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "env": {
+          "GOOGLE_SERVICES_JSON": "@google-services.json"
+        }
       }
     },
     "profile-build": {
       "channel": "profile",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "env": {
+          "GOOGLE_SERVICES_JSON": "@google-services.json"
+        }
       }
     },
     "staging": {
       "channel": "staging",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "env": {
+          "GOOGLE_SERVICES_JSON": "@google-services.json"
+        }
       }
     },
     "development": {
       "channel": "development",
       "android": {
-        "buildType": "apk"
+        "buildType": "apk",
+        "env": {
+          "GOOGLE_SERVICES_JSON": "@google-services.json"
+        }
       }
     }
   },
