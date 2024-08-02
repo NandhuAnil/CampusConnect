@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CampusConnect",
+    "name": "Campus Connect",
     "slug": "CampusConnect",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,7 +21,7 @@
       "enabled": true,
       "checkAutomatically": "ON_LOAD",
       "url": "https://u.expo.dev/8fc9fc69-f9c0-4599-a7bf-f15bc997b9ec",
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 3000
     },
     "android": {
       "googleServicesFile": "./google-services.json",
