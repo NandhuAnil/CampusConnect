@@ -30,6 +30,7 @@ export default function ProfileScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [department, setDepartment] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ export default function ProfileScreen() {
 
   const [isAboutModalVisible, setIsAboutModalVisible] = useState(false);
   const [isHelpModalVisible, setIsHelpModalVisible] = useState(false);
+  const [isSupportRequest, setIsSupportRequest] = useState(false);
 
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateProgress, setUpdateProgress] = useState(0);
@@ -85,6 +87,7 @@ export default function ProfileScreen() {
           setName(userData.name);
           setEmail(userData.email);
           setPhoneNumber(userData.phoneNumber);
+          setDepartment(userData.department);
           setSelectedImage(userData.photoURL);
           setLoading(false);
         }
@@ -108,6 +111,7 @@ export default function ProfileScreen() {
           name,
           email,
           phoneNumber,
+          department: department,
         });
         setIsEditing(false);
         ToastAndroid.show("Profile updated Successfully!", ToastAndroid.SHORT);
@@ -233,7 +237,7 @@ export default function ProfileScreen() {
           <Text
             style={[
               styles.text,
-              { fontWeight: "bold" },
+              { fontWeight: "bold", color: COLORS.white, left: 0 },
             ]}
           >
             {name}
@@ -256,7 +260,7 @@ export default function ProfileScreen() {
             <Text
               style={[styles.label, { color: "#000" }]}
             >
-              Name
+              Name :
             </Text>
             <TextInput
               style={[styles.input, { color: "#000" }]}
@@ -270,7 +274,7 @@ export default function ProfileScreen() {
             <Text
               style={[styles.label, { color: "#000" }]}
             >
-              Email
+              Email :
             </Text>
             <TextInput
               style={[styles.input, { color: "#000" }]}
@@ -279,16 +283,17 @@ export default function ProfileScreen() {
             />
           </View>
         ) : (
-          <Text style={[styles.text, { color: "#000" }]}>
-            {email}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.designLabel}>Email</Text>
+            <Text style={[styles.text, { color: "#000" }]}>{email}</Text>
+          </View>
         )}
         {isEditing ? (
           <View>
             <Text
               style={[styles.label, { color: "#000" }]}
             >
-              Phone Number
+              Phone number :
             </Text>
             <TextInput
               style={[styles.input, { color: "#000" }]}
@@ -297,9 +302,29 @@ export default function ProfileScreen() {
             />
           </View>
         ) : (
-          <Text style={[styles.text, { color: "#000" }]}>
-            {phoneNumber}
-          </Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.designLabel}>Phonenumber</Text>
+            <Text style={[styles.text, { color: "#000" }]}>{phoneNumber}</Text>
+          </View>
+        )}
+        {isEditing ? (
+          <View>
+            <Text
+              style={[styles.label, { color: "#000" }]}
+            >
+              Department :
+            </Text>
+            <TextInput
+              style={[styles.input, { color: "#000" }]}
+              value={department}
+              onChangeText={setDepartment}
+            />
+          </View>
+        ) : (
+          <View style={styles.textContainer}>
+            <Text style={styles.designLabel}>Department</Text>
+            <Text style={[styles.text, { color: "#000" }]}>{department}</Text>
+          </View>
         )}
         {isEditing && <Button title="Update Profile" onPress={handleUpdate} />}
         {!isEditing && 
@@ -317,12 +342,12 @@ export default function ProfileScreen() {
 
         <View style={styles.helpAboutSection}>
           <Pressable
-            onPress={() => setIsHelpModalVisible(true)}
+            onPress={() => setIsSupportRequest(true)}
             style={styles.helpAbout}
           >
             <View style={styles.AboutSection}>
               <MaterialIcons
-                name="help"
+                name="support"
                 size={26}
                 color={"black"}
               />
@@ -333,7 +358,7 @@ export default function ProfileScreen() {
                   { paddingTop: 3 },
                 ]}
               >
-                Help
+                Support request
               </Text>
             </View>
             <View style={styles.AboutSection}>
@@ -344,7 +369,7 @@ export default function ProfileScreen() {
                 style={{ alignItems: "center" }}
               />
             </View>
-          </Pressable>
+          </Pressable>  
           <Pressable
             onPress={() => setIsAboutModalVisible(true)}
             style={styles.helpAbout}
@@ -374,8 +399,58 @@ export default function ProfileScreen() {
               />
             </View>
           </Pressable>
+          <Pressable
+            // onPress={() => setIsHelpModalVisible(true)}
+            onPress={() => Alert.alert("Help center","Currently unavailable we are working this feature")}
+            style={styles.helpAbout}
+          >
+            <View style={styles.AboutSection}>
+              <MaterialIcons
+                name="help"
+                size={26}
+                color={"black"}
+              />
+              <Text
+                style={[
+                  styles.sectionText,
+                  { color: "#000" },
+                  { paddingTop: 3 },
+                ]}
+              >
+                Help
+              </Text>
+            </View>
+            <View style={styles.AboutSection}>
+              <MaterialIcons
+                name="arrow-right"
+                size={26}
+                color={"black"}
+                style={{ alignItems: "center" }}
+              />
+            </View>
+          </Pressable>
         </View>
         <Modal
+          visible={isSupportRequest}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setIsSupportRequest(false)}
+        >
+          <View style={styles.modalContainerHelp}>
+            <View style={{flexDirection: "row", gap: 20}}>
+              <Feather name="arrow-left" size={26} color={"black"} onPress={() => setIsSupportRequest(false)}/>
+              <Text style={[styles.titleHeader,{top: -2, fontWeight: 'normal'}]}>Reports</Text>
+            </View>
+            <View style={{ justifyContent: 'center', alignItems: 'center', top: "30%", paddingHorizontal: 20}}>
+              <Text style={{ fontSize: 19, fontWeight: '500', marginBottom: 4}}>You haven't reported anything</Text>
+              <Text style={{ fontSize: 12, textAlign: 'center', color: COLORS.grey}}>Read our Community Guidelines to learn what we allow on Campusconnect and how you can help us report and remove what we don't.</Text>
+              <TouchableOpacity>
+                <Text style={{ fontSize: 13, marginTop: 4, color: COLORS.blue}}>See community Guidelines</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+        {/* <Modal
           visible={isHelpModalVisible}
           transparent={true}
           animationType="slide"
@@ -410,56 +485,8 @@ export default function ProfileScreen() {
                 />
               </View>
             </Pressable>
-            <Pressable
-              onPress={() => Alert.alert("Report a problem","Currently unavailable we are working this feature")}
-              style={styles.helpAbout}
-            >
-              <View style={styles.AboutSection}>
-                <Text
-                  style={[
-                    styles.sectionText,
-                    { color: "#000" },
-                    { paddingTop: 3 },{paddingLeft: 10}
-                  ]}
-                >
-                  Report a problem
-                </Text>
-              </View>
-              <View style={styles.AboutSection}>
-                <MaterialIcons
-                  name="arrow-right"
-                  size={26}
-                  color={ "black"}
-                  style={{ alignItems: "center" }}
-                />
-              </View>
-            </Pressable>
-            <Pressable
-              onPress={() => Alert.alert("Support request","Currently unavailable we are working this feature")}
-              style={styles.helpAbout}
-            >
-              <View style={styles.AboutSection}>
-                <Text
-                  style={[
-                    styles.sectionText,
-                    { color: "#000" },
-                    { paddingTop: 3 },{paddingLeft: 10}
-                  ]}
-                >
-                  Support request
-                </Text>
-              </View>
-              <View style={styles.AboutSection}>
-                <MaterialIcons
-                  name="arrow-right"
-                  size={26}
-                  color={"black"}
-                  style={{ alignItems: "center" }}
-                />
-              </View>
-            </Pressable>
           </View>
-        </Modal>
+        </Modal> */}
 
         <Modal
           visible={isAboutModalVisible}
@@ -480,7 +507,7 @@ export default function ProfileScreen() {
                     { color: "#000" },
                   ]}
                 >
-                  About Engineering Student Helper
+                  Campus Connect
                 </Text>
                 <Text
                   style={[
@@ -488,7 +515,7 @@ export default function ProfileScreen() {
                     { color: "#000" },
                   ]}
                 >
-                  Welcome to the Engineering Student Helper, your all-in-one
+                  Welcome to the Campus Connect, your all-in-one
                   solution for academic support and collaboration. Our app is
                   designed to enhance your learning experience with a range of
                   features tailored to meet the needs of engineering students.
@@ -551,7 +578,7 @@ export default function ProfileScreen() {
                     { color: "#000" },
                   ]}
                 >
-                  At Engineering Student Helper, we are committed to providing a
+                  At Campus Connect, we are committed to providing a
                   supportive and efficient learning environment. Our goal is to
                   help you achieve academic excellence and stay connected with
                   your peers and instructors. Thank you for choosing us as your
@@ -581,7 +608,18 @@ export default function ProfileScreen() {
 
         <View style={styles.btnSwitch}>
           <Pressable onPress={() => setIsEditing(!isEditing)} style={styles.helpAbout}>
-            <Text style={[styles.sectionText, { color: "#196ffa" }]}>Edit Details</Text>
+            <View style={styles.AboutSection}>
+              <AntDesign name="profile" size={24} color="black" />
+              <Text style={[styles.sectionText, { color: "#196ffa" }]}>Edit Profile details</Text>
+            </View>
+            <View style={styles.AboutSection}>
+              <MaterialIcons
+                name="arrow-right"
+                size={26}
+                color={"black"}
+                style={{ alignItems: "center" }}
+              />
+            </View>
           </Pressable>
         </View>
 
@@ -598,12 +636,18 @@ export default function ProfileScreen() {
 
         <View style={styles.btnSwitch}>
           <Pressable onPress={handleLogout} style={styles.helpAbout}>
-            <Text style={[styles.sectionText, { color: "red" }]}>Logout</Text>
+            <View style={styles.AboutSection}>
+              <AntDesign name="logout" size={24} color="red" />
+              <Text style={[styles.sectionText, { color: "red" }]}>Logout</Text>
+            </View>
           </Pressable>
           <Pressable onPress={handleDeleteAccount} style={styles.helpAbout}>
-            <Text style={[styles.sectionText, { color: "red" }]}>
-              Delete Account
-            </Text>
+            <View style={styles.AboutSection}>
+              <AntDesign name="deleteuser" size={24} color="red" />
+              <Text style={[styles.sectionText, { color: "red" }]}>
+                Delete Account
+              </Text>
+            </View>
           </Pressable>
         </View>
 
@@ -675,13 +719,26 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     alignItems: "left",
   },
+  textContainer: {
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: COLORS.black,
+    marginBottom: 20
+  },
+  designLabel: {
+    position: 'absolute',
+    left: 5,
+    top: -10,
+    backgroundColor: "#f0f0f0",
+    margin: 2,
+    paddingHorizontal: 3,
+    fontSize: 11,
+    color: COLORS.primary
+  },
   text: {
     fontSize: 16,
-    marginBottom: 20,
-    paddingVertical: 10,
-    color: "#fff"
-    // fontWeight: 'bold',
-    // textAlign: 'center',
+    padding: 8,
+    left: 20
   },
   input: {
     width: "100%",
@@ -760,7 +817,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   modalText: {
-    fontSize: 16,
+    fontSize: 15,
     marginBottom: 15,
     textAlign: "justify",
   },
@@ -780,12 +837,12 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   featureTitle: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "600",
     marginBottom: 8,
   },
   featureDescription: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#555",
   },
 });

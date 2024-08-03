@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Button, TextInput, Alert } from 'react-native';
+import { View, Button, TextInput, Alert, Text } from 'react-native';
 import { useSendNotification } from './Hooks/useSendNotification';
+import COLORS from './constants/colors';
 
 const NotificationComponent = () => {
 
