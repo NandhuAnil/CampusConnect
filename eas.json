@@ -31,13 +31,11 @@
       }
     },
     "development": {
-      "channel": "development",
-      "android": {
-        "buildType": "apk",
-        "env": {
-          "GOOGLE_SERVICES_JSON": "@google-services.json"
-        }
-      }
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
     }
   },
   "submit": {
