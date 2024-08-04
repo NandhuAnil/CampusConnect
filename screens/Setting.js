@@ -21,7 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 import { MaterialIcons, Feather, AntDesign } from "@expo/vector-icons";
-// import * as Updates from 'expo-updates';
+import * as Updates from 'expo-updates';
 import * as ImagePicker from "expo-image-picker";
 import ImageViewer from "../components/ImageViewer";
 
@@ -67,7 +67,7 @@ export default function ProfileScreen() {
     try {
       setIsUpdating(true);
       await Updates.fetchUpdateAsync();
-      setUpdateProgress(100); // Simulating progress completion
+      setUpdateProgress(100);
       await Updates.reloadAsync();
     } catch (e) {
       Alert.alert("Error applying update", e.message);
