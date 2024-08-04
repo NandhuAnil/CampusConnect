@@ -26,6 +26,8 @@ import StackdevRoadmap from '../components/Roadmap/StackdevRoadmap';
 import Roadmap from "../components/Roadmap/Roadmap";
 import Resume from "../components/Resume";
 
+import Welcome from '../components/WelcomeOnbroad/Welcome';
+
 import useUserDetails from '../Hooks/UserDetails';
 
 import NotificationComponent from "../Utils/NotificationComponent";
@@ -148,6 +150,11 @@ export default function Home () {
         <Stack.Screen
           name="Notify"
           component={Notify}
+          options={{ headerShown: true }}
+        />
+        <Stack.Screen
+          name="Welcome"
+          component={Welcome}
           options={{ headerShown: true }}
         />
         <Stack.Screen

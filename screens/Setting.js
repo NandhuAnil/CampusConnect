@@ -21,7 +21,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 import { MaterialIcons, Feather, AntDesign } from "@expo/vector-icons";
-import * as Updates from 'expo-updates';
+// import * as Updates from 'expo-updates';
 import * as ImagePicker from "expo-image-picker";
 import ImageViewer from "../components/ImageViewer";
 

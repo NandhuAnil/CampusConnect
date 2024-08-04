@@ -131,6 +131,31 @@ const Admin = ({ navigation }) => {
           />
         </View>
       </Pressable>   
+      <Pressable
+        onPress={() => navigation.navigate("Welcome")}
+        style={styles.buttonDesign}
+      >
+        <View style={styles.iconDesign}>
+          <Image source={require("../assets/Icon/bell.png")} style={{ width: 30, height: 30 }} />
+          <Text
+            style={[
+              styles.sectionText,
+              { color: "#000" },
+              { paddingTop: 3 },
+            ]}
+          >
+           OnboardingScreen
+          </Text>
+        </View>
+        <View style={styles.iconDesign}>
+          <MaterialIcons
+            name="arrow-right"
+            size={26}
+            color={"black"}
+            style={{ alignItems: "center" }}
+          />
+        </View>
+      </Pressable>   
     </View>
   )
 }
