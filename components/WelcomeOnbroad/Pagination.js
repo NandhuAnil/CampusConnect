@@ -5,7 +5,7 @@ import Animated, {
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
-
+import COLORS from '../../constants/colors';
 
 const Pagination = ({data, x, screenWidth}) => {
   // eslint-disable-next-line react/no-unstable-nested-components
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   dots: {
     height: 10,
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.primary,
     marginHorizontal: 10,
     borderRadius: 5,
   },

@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Login from './screens/Login';
 import Signup from './screens/Signup';
-import Welcome from './screens/Welcome';
+import Welcome from './components/WelcomeOnbroad/Welcome';
 import Home from './screens/Home';
 
 import auth from '@react-native-firebase/auth';

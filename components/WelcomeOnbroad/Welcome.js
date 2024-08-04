@@ -8,31 +8,33 @@ import Animated, {
   interpolate,
   Extrapolation,
 } from 'react-native-reanimated';
-
+import COLORS from '../../constants/colors'
+import { LinearGradient } from "expo-linear-gradient";
 import Pagination from './Pagination';
 import CustomButton from './CustomButton';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 const data = [
-    {
-      id: 1,
-      image: require('../../assets/welcome/hero1.jpg'),
-      title: 'Lorem Ipsum',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    },
-    {
-      id: 2,
-    //   image: require('../assets/image2.png'),
-      title: 'Lorem Ipsum',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    },
-    {
-      id: 3,
-    //   image: require('../assets/image3.png'),
-      title: 'Lorem Ipsum',
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-    },
-  ];
+  {
+    id: 1,
+    image: require('../../assets/welcome/connect.png'), 
+    title: 'Campus Connect',
+    text: 'Stay updated with the latest announcements and news from the college. Never miss out on important information.',
+  },
+  {
+    id: 2,
+    image: require('../../assets/welcome/share.png'), 
+    title: 'Stay connected',
+    text: 'Facing issues or challenges? Share them with the community and get support and guidance from your peers and faculty.',
+  },
+  {
+    id: 3,
+    image: require('../../assets/welcome/guidance.png'), 
+    title: 'Get Guidance',
+    text: 'Receive guidance and advice on academic and personal matters. Our community is here to help you succeed.',
+  },
+];
+
 
 const OnboardingScreen = () => {
   const {width: SCREEN_WIDTH} = useWindowDimensions();
@@ -108,13 +110,16 @@ const OnboardingScreen = () => {
       };
     });
     return (
-      <View style={[styles.itemContainer, {width: SCREEN_WIDTH}]}>
+      <LinearGradient
+        style={[styles.itemContainer, {width: SCREEN_WIDTH}]}
+        colors={[COLORS.primary, COLORS.secondary]}
+      >
         <Animated.Image source={item.image} style={imageAnimationStyle} />
         <Animated.View style={textAnimationStyle}>
           <Text style={styles.itemTitle}>{item.title}</Text>
           <Text style={styles.itemText}>{item.text}</Text>
         </Animated.View>
-      </View>
+      </LinearGradient>
     );
   };
 
@@ -156,25 +161,24 @@ export default OnboardingScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8E9B0',
+    backgroundColor: COLORS.secondary,
   },
   itemContainer: {
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center',
-    backgroundColor: '#F8E9B0',
   },
   itemTitle: {
     textAlign: 'center',
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: 'black',
+    color: COLORS.white,
   },
   itemText: {
     textAlign: 'center',
     marginHorizontal: 35,
-    color: 'black',
+    color: "#ddd",
     lineHeight: 20,
   },
   bottomContainer: {

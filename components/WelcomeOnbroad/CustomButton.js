@@ -6,7 +6,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useNavigation} from '@react-navigation/native';
-
+import COLORS from '../../constants/colors';
 
 const CustomButton = ({flatListRef, flatListIndex, dataLength}) => {
   const navigation = useNavigation();
@@ -56,11 +56,11 @@ const CustomButton = ({flatListRef, flatListIndex, dataLength}) => {
         if (flatListIndex.value < dataLength - 1) {
           flatListRef.current.scrollToIndex({index: flatListIndex.value + 1});
         } else {
-          navigation.navigate('Home');
+          navigation.navigate('Signup');
         }
       }}>
       <Animated.View style={[styles.container, buttonAnimationStyle]}>
-        <Animated.Text style={[styles.textButton, textAnimationStyle]}>
+        <Animated.Text style={[styles.textButton, textAnimationStyle]} >
           Get Started
         </Animated.Text>
         <Animated.Image
@@ -76,7 +76,7 @@ export default CustomButton;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
+    backgroundColor: COLORS.primary,
     padding: 10,
     borderRadius: 100,
     justifyContent: 'center',

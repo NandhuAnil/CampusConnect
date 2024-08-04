@@ -131,7 +131,7 @@ const Admin = ({ navigation }) => {
           />
         </View>
       </Pressable>   
-      <Pressable
+      {/* <Pressable
         onPress={() => navigation.navigate("Welcome")}
         style={styles.buttonDesign}
       >
@@ -155,7 +155,7 @@ const Admin = ({ navigation }) => {
             style={{ alignItems: "center" }}
           />
         </View>
-      </Pressable>   
+      </Pressable>    */}
     </View>
   )
 }
