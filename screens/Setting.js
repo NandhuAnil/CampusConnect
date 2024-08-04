@@ -13,6 +13,7 @@ import {
   ToastAndroid,
   TouchableOpacity,
 } from "react-native";
+import { ProgressBar } from '@react-native-community/progress-bar-android';
 import { LinearGradient } from "expo-linear-gradient";
 import COLORS from "../constants/colors";
 
@@ -63,9 +64,22 @@ export default function ProfileScreen() {
     }
   };
 
+  const simulateProgress = () => {
+    let progress = 0;
+    setUpdateProgress(progress);
+    const interval = setInterval(() => {
+      progress += 10; 
+      setUpdateProgress(progress);
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 500);
+  };
+
   const applyUpdate = async () => {
     try {
       setIsUpdating(true);
+      simulateProgress();
       await Updates.fetchUpdateAsync();
       setUpdateProgress(100);
       await Updates.reloadAsync();
@@ -677,8 +691,14 @@ export default function ProfileScreen() {
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
             <View style={{ width: 300, padding: 20, backgroundColor: 'white', borderRadius: 10, alignItems: 'center' }}>
               <Text>Downloading Update...</Text>
-              <ActivityIndicator size="large" color="#0000ff" />
-              <Text>{`Progress: ${updateProgress}%`}</Text>
+              <ProgressBar 
+                styleAttr="Horizontal" 
+                indeterminate={false} 
+                progress={updateProgress / 100} 
+                color="#0000ff" 
+                style={{ width: 200, marginVertical: 20 }}
+              />
+              <Text>{`Downloading: ${updateProgress}%`}</Text>
             </View>
           </View>
         </Modal>
